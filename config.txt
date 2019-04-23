@@ -1,0 +1,17 @@
+// Setup all top-level topics
+topics: [toFilter, toMap, toDest]
+
+// Set up the source
+source: songs.db
+sourceCols: songs [id, title, length]
+producer: my-producer [toFilter]
+
+// Set up a filter
+filter: my-filter toFilter [toMap] pred: $length > 3
+
+// Set up a map
+map: my-map toMap [toDest] func: $length = $length * 2
+
+// Designate a destination
+destination: songs.db done
+consumer: my-consumer toDest group1
